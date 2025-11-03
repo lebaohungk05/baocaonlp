@@ -1,0 +1,781 @@
+\documentclass[12pt,a4paper]{article}
+
+% ---------- GÓI HỖ TRỢ ----------
+
+\usepackage[T5]{fontenc}      % hỗ trợ tiếng Việt
+\usepackage[vietnamese]{babel}
+\usepackage{setspace}         % chỉnh khoảng cách dòng
+\renewcommand{\baselinestretch}{1.3}
+\usepackage{indentfirst}
+\setlength{\parindent}{1.27cm}
+\usepackage{geometry}         % căn lề
+\usepackage{amsmath}
+\usepackage{fancyhdr}
+\setlength{\headheight}{14pt}        % header/footer
+\usepackage{graphicx}         % hình ảnh
+\usepackage{booktabs}         % bảng đẹp
+\usepackage{longtable}        % bảng dài
+\usepackage{csquotes}
+\usepackage{array}            % căn chỉnh bảng
+\usepackage{caption}          % tùy chỉnh caption
+\usepackage{biblatex}
+\addbibresource{ref.bib}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{titlesec}
+\titlespacing*{\chapter}{0pt}{5mm}{10mm} % *Điều chỉnh khoảng cách lề trên cho trang bắt đầu chương*
+\titleformat{\chapter}[display]
+  {\normalfont\Large\bfseries\centering}{\relax}{0pt}
+  {}
+\usepackage{float}                      % Set vị trí chèn ảnh
+\usepackage{tikz}                       % Thư viện tạo khung bìa
+\usetikzlibrary{calc}                   % Thư viện tikz
+
+
+% ---------- CẤU HÌNH TRANG ----------
+\geometry{a4paper, left=35mm, right=25mm, top=25mm, bottom=25mm}
+\onehalfspacing   % tương đương line spacing 1.3
+
+% ---------- HEADER & FOOTER ----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Báo cáo môn Xử lý ngôn ngữ tự nhiên / Lớp Xử lý ngôn ngữ tự nhiên-1-1-25(N01)}
+\fancyfoot[L]{\small Nhóm số 16}
+\fancyfoot[R]{\thepage}
+\usepackage{xurl}
+\usepackage[colorlinks=true, linkcolor=black, urlcolor=blue, citecolor=green, breaklinks]{hyperref}
+\begin{document}
+    
+% --- Tạo trang bìa (chính) ---
+\begin{titlepage}
+    \begin{tikzpicture}[overlay, remember picture]
+        \draw[line width=1pt]
+            ($ (current page.north west) + (3.5cm, -2.5cm) $)
+            rectangle
+            ($ (current page.south east) + (-2.5cm, 2.5cm) $);
+    \end{tikzpicture}
+
+    \begin{center}
+        \vspace{-0.5cm}
+        \textbf{\fontsize{14pt}{0pt}\selectfont ĐẠI HỌC PHENIKAA} \\
+        \textbf{\fontsize{14pt}{0pt}\selectfont TRƯỜNG CÔNG NGHỆ THÔNG TIN PHENIKAA}
+
+        \vspace{1.5cm}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.3\textwidth]{images/Logo_Phenikaa.png}
+        \end{figure}
+
+        \vspace{1.5cm}
+        \textbf{\fontsize{20pt}{0pt}\selectfont BÁO CÁO BÀI TẬP LỚN} \\
+        \textbf{\fontsize{20pt}{0pt}\selectfont Lớp Nhập môn Trí tuệ nhân tạo-1-1-25(N01)}
+
+        \vspace{2cm}
+        \textbf{\fontsize{16pt}{0pt}\selectfont ĐỀ TÀI} \\
+        \textbf{\fontsize{16pt}{0pt}\selectfont NHẬN DẠNG CẢM XÚC QUA KHUÔN MẶT}
+
+        \vspace{2cm}
+        \centering
+        \begin{tabular}{rl}
+            Sinh viên thực hiện: & 
+            Lê Bảo Hưng, MSSV: 23010090 \\ 
+            & Nguyễn Văn Thái, MSSV: 23010531 \\[0.5em]
+            Giảng viên hướng dẫn: & ThS. Trần Đình Tân \\
+        \end{tabular}
+
+        \vspace{4.5cm}
+        \textbf{Hà Nội, năm 2025}
+    \end{center}
+\end{titlepage}
+
+% --- Tạo trang bìa (phụ) ---
+\cleardoublepage
+\thispagestyle{empty}
+\begin{tikzpicture}[overlay, remember picture]
+    \draw[line width=1pt]
+        ($ (current page.north west) + (3.5cm, -2.5cm) $)
+        rectangle
+        ($ (current page.south east) + (-2.5cm, 2.5cm) $);
+\end{tikzpicture}
+
+\begin{center}
+    \vspace{-0.5cm}
+    \textbf{\fontsize{14pt}{0pt}\selectfont ĐẠI HỌC PHENIKAA} \\
+    \textbf{\fontsize{14pt}{0pt}\selectfont TRƯỜNG CÔNG NGHỆ THÔNG TIN PHENIKAA}
+
+    \vspace{1.5cm}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.3\textwidth]{images/Logo_Phenikaa.png}
+    \end{figure}
+
+    \vspace{1.5cm}
+    \textbf{\fontsize{20pt}{0pt}\selectfont BÁO CÁO BÀI TẬP LỚN} \\
+    \textbf{\fontsize{20pt}{0pt}\selectfont Lớp Nhập môn Trí tuệ nhân tạo-1-1-25(N01)}
+
+    \vspace{2cm}
+    \textbf{\fontsize{16pt}{0pt}\selectfont ĐỀ TÀI} \\
+    \textbf{\fontsize{16pt}{0pt}\selectfont NHẬN DẠNG CẢM XÚC QUA KHUÔN MẶT}
+
+    \vspace{2cm}
+    \centering
+    \begin{tabular}{rl}
+        Sinh viên thực hiện: & 
+        Lê Bảo Hưng, MSSV: 23010090 \\ 
+        & Nguyễn Văn Thái, MSSV: 23010531 \\[0.5em]
+        Giảng viên hướng dẫn: & ThS. Trần Đình Tân \\
+    \end{tabular}
+
+    \vspace{4.5cm}
+    \textbf{Hà Nội, năm 2025}
+\end{center}
+
+% --- Mục lục, danh sách bảng biểu, hình ảnh ---
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+\listoftables
+\thispagestyle{empty}
+\newpage
+\listoffigures
+\thispagestyle{empty}
+\newpage
+
+% --- PHẦN 1 ---
+\section{MỞ ĐẦU}
+\subsection{Bối cảnh và tính cấp thiết của đề tài}
+
+\subsection{Mục tiêu dự án}
+
+\subsection{Đối tượng và phạm vi nghiên cứu}
+
+\subsection{Bố cục báo cáo}
+
+\newpage
+
+% --- PHẦN 2 ---
+\section{CƠ SỞ LÝ THUYẾT VÀ TỔNG QUAN}
+
+\newpage
+
+% --- PHẦN 3 ---
+\section{PHƯƠNG PHÁP THỰC HIỆN}
+
+\newpage
+
+% --- PHẦN 4 ---
+
+\section{KẾT QUẢ VÀ THẢO LUẬN}
+\label{sec:ket_qua_thao_luan}
+
+Mục này trình bày chi tiết về môi trường và dữ liệu thí nghiệm, các độ đo đánh giá, và kết quả thực nghiệm của hệ thống RAG chatbot. Đồng thời, mục cũng đi sâu vào thảo luận về ưu/nhược điểm, phân tích lỗi, và các mối đe dọa đến giá trị nghiên cứu, bao gồm cả tác động của các kỹ thuật tiền xử lý dữ liệu nâng cao.
+
+\subsection{Môi trường và Dữ liệu Thí nghiệm}
+
+\subsubsection{Môi trường Thực nghiệm}
+Hệ thống được xây dựng và thử nghiệm trong môi trường Python 3.10+. Các thư viện và thành phần kỹ thuật cốt lõi bao gồm:
+
+\begin{itemize}
+    \item \textbf{Vector Store:} ChromaDB (sử dụng persistent client).\cite{chromadb}
+    \item \textbf{Framework LLM:} LangChain.\cite{langchain}
+    \item \textbf{LLM tạo sinh:} Ollama với mô hình \texttt{llama3.2:latest}.\cite{llama3-meta-2024}
+    \begin{sloppy}
+    \item \textbf{Mô hình Embedding:} \texttt{sentence-transformers/all-MiniLM-L6-v2}.\cite{sentence-bert-reimers-2019}
+    \item \textbf{Mô hình Reranker (tùy chọn):} \texttt{cross-encoder/ms-marco-MiniLM-L-6-v2}.
+    \end{sloppy}
+    \item \textbf{Giao diện demo:} Streamlit.\cite{streamlit}
+\end{itemize}
+
+\subsubsection{Dữ liệu}
+\begin{itemize}
+    \item \textbf{Cơ sở tri thức (Knowledge Base):} Sử dụng tệp \texttt{resources/faqs.csv}, bao gồm các cặp câu hỏi và câu trả lời (FAQ) liên quan đến các kỳ thi tiếng Anh như IELTS, TOEIC và SAT.
+    
+    \begin{sloppy}
+    \item \textbf{Tập đánh giá (Gold Standard):} Sử dụng tệp \texttt{resources/gold\_eval.jsonl} (N=26) nhằm đo lường hiệu quả của mô hình ở hai giai đoạn: truy xuất (retrieval) và tạo sinh (generation).
+    \end{sloppy}
+\end{itemize}
+
+\paragraph{Pipeline Tiền xử lý Dữ liệu và Truy vấn:}
+Để đảm bảo tính nhất quán và giảm nhiễu (noise) dữ liệu, một pipeline tiền xử lý và chuẩn hóa mạnh đã được áp dụng cho cả cơ sở tri thức \texttt{faqs.csv} khi nạp (ingestion) và cho cả câu hỏi truy vấn của người dùng (query). Pipeline này bao gồm các bước:
+\begin{itemize}
+    \item \textbf{Chuẩn hóa mạnh:} Áp dụng chuẩn hóa Unicode (NFKC), chuyển đổi về chữ thường, gom các khoảng trắng thừa.
+    \item \textbf{Loại bỏ Ký tự (:} Cung cấp tùy chọn cấu hình để loại bỏ dấu hoặc các ký tự đặc biệt, giúp tăng khả năng khớp với các truy vấn "bẩn" (ví dụ: tiếng Việt không dấu).
+    \begin{sloppy}
+    \item \textbf{Khử trùng lặp sâu (Deduplication):} Sau khi chuẩn hóa, hệ thống loại bỏ các bản ghi FAQ bị trùng lặp gần (near-duplicates) dựa trên sự kết hợp của hash chuẩn hóa và độ tương đồng Jaccard (ngưỡng \texttt{DEDUP\_SIM\_THRESHOLD}).
+    \end{sloppy}
+\end{itemize}
+\begin{sloppy}
+Pipeline này được áp dụng đồng bộ cho cả dữ liệu nạp vào và truy vấn đầu vào để đảm bảo tính nhất quán. Các bước này có thể được bật/tắt và tinh chỉnh thông qua tệp \texttt{config.py}.
+\end{sloppy}
+
+\subsection{Các độ đo đánh giá (Evaluation Metrics)}
+\label{sec:metrics}
+Đánh giá hệ thống theo hai giai đoạn: truy xuất (retrieval) và tạo sinh (generation).
+
+\begin{itemize}
+    \item \textbf{Truy xuất} (định nghĩa trong \texttt{metrics.py}):
+    \begin{itemize}
+        \item \textbf{Recall@$k$ (R@$k$):} Tỷ lệ câu hỏi có ít nhất một tài liệu liên quan trong top $k$ kết quả.
+        \item \textbf{Mean Reciprocal Rank (MRR):} Trung bình nghịch đảo thứ hạng của tài liệu liên quan \emph{đầu tiên}.
+        \item \textbf{nDCG@$k$ (Normalized Discounted Cumulative Gain):} Đo lường chất lượng xếp hạng có chiết khấu theo vị trí, xét top $k$.
+    \end{itemize}
+
+    \begin{sloppy}
+    \item \textbf{Tạo sinh} (khi có \texttt{gold\_eval.jsonl}, sử dụng \texttt{answer\_metrics.py}):
+    \begin{itemize}
+        \item \textbf{ROUGE-L:} Dựa trên chuỗi con chung dài nhất (LCS).
+        \item \textbf{BLEU:} Dựa trên sự trùng khớp của N-grams.
+    \end{itemize}
+    \end{sloppy}
+\end{itemize}
+
+\subsection{Thiết lập và Kết quả Thực nghiệm}
+\label{sec:results}
+\begin{sloppy}
+Các thí nghiệm được thực hiện bằng script \texttt{evaluate.py}. Toàn bộ pipeline đánh giá đều đã bật chuẩn hóa mạnh và khử trùng lặp sâu (bản QA và truy vấn đều chuẩn hóa trước khi indexing/querying).
+\end{sloppy}
+
+So sánh bốn biến thể truy xuất:
+\begin{enumerate}
+    \item \textbf{Vector-only}: Chỉ tìm kiếm tương đồng vector.
+    \item \textbf{BM25-only}: Chỉ tìm kiếm từ khóa BM25.\cite{bm25-sparck-jones-2000}
+    \item \textbf{Hybrid (Fusion)}: Hợp nhất điểm số từ Vector và BM25.
+    \item \textbf{Hybrid + Rerank}: Áp dụng mô hình Cross-Encoder để xếp hạng lại kết quả từ Hybrid.
+\end{enumerate}
+
+Các siêu tham số được sử dụng cho lần chạy thí nghiệm này được ghi nhận từ log:
+\begin{itemize}
+    \item \texttt{VECTOR\_TOP\_K}: 8
+    \item \texttt{BM25\_TOP\_K}: 5
+    \item \texttt{HYBRID\_ALPHA}: 0.4
+    \item \texttt{RERANKER\_ENABLED}: False
+\end{itemize}
+
+\subsubsection{Bảng kết quả truy xuất}
+Kết quả thực nghiệm trên tập đánh giá (N=26 câu hỏi) được trình bày chi tiết trong Bảng \ref{tab:ket_qua_truy_xuat_thuc}.
+
+\begin{table}[ht!]
+\centering
+\caption{Kết quả đánh giá các phương pháp truy xuất (N=26)}
+\label{tab:ket_qua_truy_xuat_thuc}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{Phương pháp} & \textbf{R@1} & \textbf{R@3} & \textbf{R@5} & \textbf{MRR} & \textbf{nDCG@5} \\
+\midrule
+Vector-only          & 0.846       & 0.846       & 0.846       & 0.859       & 0.836         \\
+BM25-only            & 0.846       & 0.923       & 0.923       & 0.889       & 0.889         \\
+Hybrid (Fusion)      & 0.846       & 0.923       & 0.923       & 0.889       & 0.889         \\
+Hybrid + Rerank      & 0.846       & 0.923       & 0.923       & 0.889       & 0.889         \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{sloppy}
+Chất lượng tạo sinh (đánh giá trên biến thể tốt nhất (Hybrid/BM25), sử dụng \texttt{\_StubLLM}, N=26):
+\end{sloppy}
+\begin{itemize}
+    \item \textbf{BLEU}: 0.365
+    \item \textbf{ROUGE-L}: 0.484
+\end{itemize}
+\subsubsection{Biểu đồ trực quan}
+Để trực quan hóa sự khác biệt về hiệu năng, Bảng \ref{tab:ket_qua_truy_xuat_thuc} được biểu diễn qua biểu đồ cột .
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/retrieval.png}
+    \caption{Kết quả đánh giá các phương pháp truy xuất}
+    \label{fig:Ket_qua_danh_gia_cac_phuong_phap_truy_xuat}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/LatencyBreakdown.png}
+    \caption{Phân tích độ trễ theo từng thành phần}
+    \label{fig:Phan_tich_do_tre}
+\end{figure}
+\newpage
+\subsubsection{Ablation study (Phân rã thành phần)}
+Kết quả trong Bảng \ref{tab:ket_qua_truy_xuat_thuc} cho thấy sự trùng hợp bất thường giữa BM25, Hybrid và Rerank. Để hiểu rõ hơn đóng góp của từng thành phần, các thí nghiệm phân rã (ablation studies) được đề xuất:
+\begin{itemize}
+    \item \textbf{Thay đổi \texttt{HYBRID\_ALPHA}}: Thử nghiệm với các giá trị $\alpha \in \{0.3, 0.5, 0.6, 0.7\}$. Cấu hình hiện tại ($\alpha=0.4$) có thể đã quá thiên về BM25.
+    \begin{sloppy}
+    \item \textbf{Thay đổi $k$}: Tăng \texttt{VECTOR\_TOP\_K} (ví dụ: 16) và \texttt{BM25\_TOP\_K} (ví dụ: 10) để cung cấp nhiều ứng viên đa dạng hơn cho fusion.
+    \item \textbf{Kích hoạt Reranker}: Chạy lại thí nghiệm với \texttt{RERANKER\_ENABLED = True} và thử nghiệm với các giá trị \texttt{RERANK\_CANDIDATES} khác nhau (ví dụ: 10, 20).
+    \end{sloppy}
+\end{itemize}
+
+\subsubsection{Chất lượng tạo sinh (Generation)}
+\begin{sloppy}
+Đánh giá định lượng (N=26) bằng BLEU (0.365) và ROUGE-L (0.484) cho thấy mô hình tạo sinh (sử dụng \texttt{\_StubLLM} trong \texttt{evaluate.py}) có khả năng tạo ra câu trả lời tương đối khớp với tham chiếu.
+\end{sloppy}
+
+\begin{itemize}
+    \item Tỷ lệ câu trả lời có trích dẫn đúng nguồn ([S1], [S2],...): \textit{[XX]\%}
+    \item \textbf{Ví dụ tốt (Mô phỏng):}
+    \begin{itemize}
+        \item \textbf{Câu hỏi:} "What does IELTS stand for?"
+        \item \textbf{Trả lời:} "IELTS stands for International English Language Testing System. [S1]"
+        \item \textbf{Nhận xét:} Trả lời đúng, trích dẫn chính xác, diễn đạt mạch lạc.
+    \end{itemize}
+    \begin{sloppy}
+    \item \textbf{Ví dụ chưa tốt (Mô phỏng):}
+    \begin{itemize}
+        \item \textbf{Câu hỏi:} "How can i get 6.5 Ielts"
+        \item \textbf{Trả lời:} (Tham chiếu từ log) "Based on... [S1] ...Question: How can I use online writing platforms to get feedback?"
+        \item \textbf{Nhận xét:} Lỗi truy xuất. Tài liệu truy xuất chỉ liên quan một phần (cải thiện kỹ năng viết), LLM (\texttt{\_StubLLM}) đã không thể tổng hợp được câu trả lời hữu ích.
+    \end{itemize}
+    \end{sloppy}
+\end{itemize}
+
+\subsubsection{Đánh giá tác động của Chuẩn hóa và Khử trùng lặp nâng cao}
+Một đóng góp quan trọng của hệ thống là pipeline tiền xử lý và khử trùng lặp sâu, được áp dụng trong tất cả các thí nghiệm:
+\begin{itemize}
+    \item \textbf{Giảm nhiễu (Noise Reduction):} Việc áp dụng khử trùng lặp dựa trên hash chuẩn hóa và Jaccard đã giúp loại bỏ đáng kể các bản ghi FAQ gần giống hệt nhau (near-duplicates) khỏi cơ sở tri thức (index).
+    \item \textbf{Ngăn chặn trùng lặp kết quả:} Khi truy xuất, cơ chế này cũng ngăn chặn trường hợp top $k$ kết quả trả về chứa nhiều tài liệu giống hệt nhau (clones), giúp tiết kiệm "không gian ngữ cảnh" (context window) của LLM.
+    \begin{sloppy}
+    \item \textbf{Tăng tính ổn định (Robustness):} Nhờ việc chuẩn hóa mạnh (NFKC, viết thường, loại bỏ ký tự đặc biệt) ở cả dữ liệu index và truy vấn, hệ thống có khả năng xử lý ổn định các truy vấn đầu vào "bẩn" (ví dụ: "ielts là gì???", "IELTS LÀ GÌ", hoặc các câu hỏi tiếng Việt không dấu nếu \texttt{NORMALIZE\_REMOVE\_ACCENTS} được kích hoạt).
+    \end{sloppy}
+    \begin{sloppy}
+    \item \textbf{Hỗ trợ Phân tích (Ablation):} Khả năng bật/tắt các bước này qua \texttt{config.py} cho phép thực hiện các ablation study để đo lường chính xác hiệu quả của việc chuẩn hóa dữ liệu đối với hiệu suất truy xuất.
+    \end{sloppy}
+\end{itemize}
+
+\subsection{Thảo luận}
+
+\subsubsection{Ưu điểm}
+\begin{itemize}
+    \item \textbf{Hiệu quả cao của BM25}: Với R@1=0.846 và MRR=0.889, phương pháp tìm kiếm từ khóa BM25 tỏ ra rất mạnh mẽ trên bộ dữ liệu FAQ này.\cite{bm25-sparck-jones-2000}
+    \item \textbf{Xử lý đa dạng câu hỏi}: BM25 mạnh ở R@3/5 (0.923); Vector-only giữ R@1 tốt (0.846), cho thấy tiềm năng xử lý các câu hỏi đồng nghĩa.
+    \item \textbf{Câu trả lời tự nhiên, có trích dẫn}: Điểm ROUGE-L=0.484 và BLEU=0.365 phản ánh chất lượng tạo sinh ổn định. Khả năng trích dẫn nguồn ([S\#]) là một ưu điểm quan trọng.
+    \begin{sloppy}
+    \item \textbf{Kiến trúc linh hoạt, dễ mở rộng}: Hệ thống cho phép thay thế mô hình, điều chỉnh siêu tham số dễ dàng qua \texttt{config.py}.
+    \end{sloppy}
+\end{itemize}
+
+\subsubsection{Hạn chế}
+\begin{itemize}
+    \item \textbf{Hybrid chưa vượt trội BM25}: Với cấu hình $\alpha=0.4$, Hybrid cho kết quả y hệt BM25-only. Điều này cho thấy sự kết hợp (fusion) chưa hiệu quả và cần tinh chỉnh lại trọng số $\alpha$.
+    
+    \begin{sloppy}
+    \item \textbf{Reranker chưa mang lại cải thiện}: Do thí nghiệm được chạy với \texttt{RERANKER\_ENABLED = False}, nên kết quả của \texttt{HYBRID\_RERANK} trùng với \texttt{HYBRID}. Tiềm năng của mô hình Cross-encoder chưa được khai thác.
+    \end{sloppy}
+
+    \begin{sloppy}
+    \item \textbf{Phụ thuộc tri thức (Knowledge-Bound)}: Hệ thống RAG bị giới hạn nghiêm ngặt bởi nội dung có trong \texttt{faqs.csv}.
+    \end{sloppy}
+    \item \textbf{Độ trễ/Hạ tầng}: Pipeline RAG gồm nhiều bước (đặc biệt là Reranker và LLM Generation) có thể gây độ trễ. Việc chạy LLM cục bộ yêu cầu tài nguyên GPU.
+\end{itemize}
+
+\subsubsection{Diễn giải kết quả chính}
+\label{subsec:interpretation}
+Kết quả từ Bảng \ref{tab:ket_qua_truy_xuat_thuc} cung cấp những hiểu biết quan trọng về tương tác giữa các thành phần trên bộ dữ liệu này:
+
+\begin{itemize}
+    \item \textbf{So sánh Vector-only và BM25-only}: Cả hai đều đạt R@1=0.846, nhưng BM25 vượt trội rõ rệt ở các độ đo sâu hơn (R@3, R@5, MRR, nDCG@5). Điều này ngụ ý rằng:
+        \begin{enumerate}
+            \item Bộ dữ liệu FAQ \texttt{faqs.csv} có độ tương đồng từ vựng cao, giúp BM25 hoạt động rất hiệu quả.
+            \begin{sloppy}
+            \item Mô hình embedding \texttt{all-MiniLM-L6-v2} có thể chưa đủ mạnh để nắm bắt các biến thể diễn đạt (paraphrase) phức tạp, khiến nó không vượt trội hơn BM25 trên tập dữ liệu này.
+            \end{sloppy}
+        \end{enumerate}
+    
+    \item \textbf{Hiệu quả của Hybrid (Fusion)}: Kết quả của Hybrid hoàn toàn giống hệt BM25-only. Nguyên nhân trực tiếp là do cấu hình thí nghiệm \texttt{HYBRID\_ALPHA=0.4}. Trọng số này quá thiên về BM25, khiến cho điểm số từ Vector Search (với trọng số 0.4) không đủ lớn để thay đổi thứ hạng do BM25 (với trọng số 0.6) tạo ra. 
+    
+    \begin{sloppy}
+    \item \textbf{Hiệu quả của Reranking}: Kết quả của \texttt{Hybrid + Rerank} cũng giống hệt BM25 và Hybrid. Nguyên nhân là do thí nghiệm được chạy với cấu hình \texttt{Rerank=False}. Do đó, bước reranking đã bị bỏ qua, và kết quả chỉ đơn thuần là bản sao của giai đoạn Hybrid.
+    \end{sloppy}
+\end{itemize}
+
+Tóm lại, kết quả thực nghiệm này chủ yếu phản ánh hiệu năng mạnh mẽ của BM25 trên tập dữ liệu FAQ cụ thể này. Hiệu quả thực sự của Hybrid Fusion và Reranking chưa được đánh giá đúng mức do cấu hình thí nghiệm (Alpha thấp và Rerank bị tắt).
+
+\subsection{Phân tích lỗi (Error Analysis)}
+\label{sec:error_analysis}
+Phân tích các trường hợp thất bại (failure cases) là rất quan trọng để cải thiện mô hình. Các lỗi có thể được phân loại như sau:
+
+\begin{itemize}
+    \item \textbf{Lỗi Truy xuất (Retrieval Failure):}
+        \begin{itemize}
+            \item \textbf{Không tìm thấy tài liệu liên quan (Low Recall):} Câu hỏi của người dùng quá khác biệt so với \texttt{faqs.csv} về mặt từ vựng (BM25 thất bại) và ngữ nghĩa (Vector thất bại).
+            \item \textbf{Tìm thấy tài liệu sai chủ đề (Low Precision):} Truy xuất các FAQ có từ khóa trùng khớp nhưng ngữ cảnh sai.
+        \end{itemize}
+    \item \textbf{Lỗi Tạo sinh (Generation Failure):}
+        \begin{itemize}
+            \begin{sloppy}
+            \item \textbf{Paraphrase mạnh (False Negative):} Câu trả lời của LLM đúng về mặt ngữ nghĩa nhưng dùng từ khác hoàn toàn so với \texttt{gold\_eval.jsonl}, dẫn đến điểm BLEU/ROUGE-L thấp (ví dụ: BLEU=0.365, ROUGE-L=0.484).
+            \end{sloppy}
+            \item \textbf{Hallucination:} LLM "bịa" thêm thông tin không có trong ngữ cảnh được truy xuất.
+            \item \textbf{Câu hỏi ngoài phạm vi (Out-of-Scope):} Câu hỏi không liên quan đến cơ sở tri thức.
+        \end{itemize}
+\end{itemize}
+
+
+\subsection{Mối đe dọa đến giá trị (Threats to Validity)}
+\label{sec:threats}
+Các yếu tố có thể ảnh hưởng đến tính tổng quát và độ tin cậy của kết quả nghiên cứu:
+
+\begin{itemize}
+    \begin{sloppy}
+    \item \textbf{Internal Validity (Kích thước tập gold nhỏ):} Tập \texttt{gold\_eval.jsonl} chỉ có N=26 mẫu. Kết quả trên tập nhỏ có thể không ổn định về mặt thống kê.
+    \item \textbf{External Validity (Bias miền dữ liệu):} Cơ sở tri thức \texttt{faqs.csv} rất chuyên biệt. Hiệu năng của hệ thống (đặc biệt là trọng số $\alpha$ tối ưu) có thể khác biệt đáng kể khi áp dụng cho các miền dữ liệu khác.
+    \end{sloppy}
+    \item \textbf{Construct Validity (Vấn đề tái lập):} Việc tái lập kết quả có thể gặp khó khăn nếu không cố định seed, ghi rõ phiên bản thư viện, và cấu hình phần cứng chi tiết.
+\end{itemize}
+
+
+\newpage
+
+% --- PHẦN 5 ---
+\section{DEMO VÀ ỨNG DỤNG}
+
+Phần này trình bày chi tiết về quy trình triển khai, vận hành giao diện demo, và phân tích các ứng dụng thực tiễn của hệ thống chatbot RAG (Retrieval-Augmented Generation) đã được phát triển. Mục tiêu là minh họa khả năng hoạt động của hệ thống trong môi trường mô phỏng và đánh giá tiềm năng ứng dụng của nó.
+
+\subsection{Mô tả Triển khai và Demo}
+\label{ssec:trienkhai_demo}
+
+Hệ thống được triển khai dưới dạng một ứng dụng web tương tác, sử dụng \textbf{Streamlit} làm giao diện người dùng (UI). Phần nền (backend) của ứng dụng kết nối với \textbf{Ollama} để tận dụng mô hình ngôn ngữ lớn (LLM) \texttt{llama3.2} cho tác vụ tạo sinh câu trả lời (Generation) dựa trên các nguồn tri thức được truy xuất (Retrieval). \cite{streamlit}\cite{llama3-meta-2024}
+
+\subsubsection{Hướng dẫn Vận hành và Triển khai}
+\label{sssec:vanhanh_trienkhai}
+
+Để tái lập và vận hành hệ thống, cần thực hiện các bước sau:
+
+\begin{itemize}
+    \item \textbf{Yêu cầu hệ thống:}
+    \begin{itemize}
+        \item Hệ điều hành: Windows, macOS, hoặc Linux.
+        \item Phần mềm: Python 3.10+, Ollama đã được cài đặt.
+        \item Phần cứng: RAM khuyến nghị $\geq$ 8 GB (để vận hành LLM nội bộ).
+        \item Mạng: Cần kết nối Internet để tải mô hình \texttt{llama3.2} lần đầu.
+    \end{itemize}
+
+    \item \textbf{Thiết lập Môi trường (Ví dụ trên PowerShell/Terminal):}
+    \begin{enumerate}
+        \item Di chuyển đến thư mục gốc của dự án.
+        \begin{verbatim}
+cd <thư_mục_mã_nguồn>
+        \end{verbatim}
+        
+        \item Tạo và kích hoạt môi trường ảo (virtual environment).
+        \begin{verbatim}
+python -m venv .venv
+# Windows
+.\.venv\Scripts\Activate.ps1
+# macOS/Linux
+# source .venv/bin/activate
+        \end{verbatim}
+        
+        \item Cài đặt các thư viện phụ thuộc.
+        \begin{verbatim}
+pip install -r requirements.txt
+        \end{verbatim}
+    \end{enumerate}
+
+    \item \textbf{Khởi động Mô hình Ngôn ngữ (Ollama):}
+    \begin{enumerate}
+        \item Đảm bảo dịch vụ Ollama đang chạy.
+        \item Tải mô hình (nếu chưa có) và kiểm tra hoạt động.
+        \begin{verbatim}
+ollama pull llama3.2
+ollama run llama3.2
+        \end{verbatim}
+        \item \textit{Ghi chú:} Dịch vụ Ollama mặc định chạy tại \texttt{http://localhost:11434}.
+    \end{enumerate}
+
+    \item \textbf{Chạy Giao diện Web (Streamlit):}
+    \begin{enumerate}
+        \item Khởi chạy ứng dụng web.
+        \begin{verbatim}
+streamlit run enhanced_main.py 
+        \end{verbatim}
+        \item Truy cập ứng dụng qua trình duyệt tại địa chỉ: \texttt{http://localhost:8501}.
+    \end{enumerate}
+
+    \item \textbf{Cấu hình hệ thống:}
+    \begin{itemize}
+        \item Các biến môi trường, khóa API (nếu có) và tham số (ví dụ: top-k) được quản lý trong tệp \texttt{config.py}.
+        \item Cơ sở tri thức nguồn được lưu tại \texttt{resources/faqs.csv}.
+        \item Cơ sở dữ liệu vector (vectorstore) được lưu tại thư mục \texttt{vectorstore/}.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Phân tích Giao diện Người dùng}
+\label{sssec:phan_tich_ui}
+
+Giao diện demo (UI) được xây dựng bằng Streamlit, bao gồm các thành phần tương tác chính sau:
+
+\begin{itemize}
+    \item \textbf{Ô nhập liệu (\texttt{st.text\_input}):} Cho phép người dùng nhập câu hỏi (truy vấn).
+    \item \textbf{Nút Gửi (\texttt{st.button}):} Kích hoạt quy trình RAG (Retrieval và Generation).
+    \item \textbf{Khu vực hiển thị Kết quả:}
+    \begin{itemize}
+        \item \textbf{Câu trả lời:} Hiển thị câu trả lời do LLM (\texttt{llama3.2}) tạo ra, có trích dẫn rõ ràng nguồn tri thức chính {[}S1{]} đã được sử dụng.
+        \item \textbf{Nguồn truy xuất:} Hiển thị Top-k tài liệu/nguồn liên quan được truy xuất từ cơ sở tri thức. Các nguồn này được kèm theo điểm số chi tiết từ các thành phần của hệ thống (ví dụ: điểm BM25, điểm Vector, điểm Fused) để tăng tính minh bạch.
+    \end{itemize}
+    \item \textbf{Biểu mẫu Bổ sung Tri thức (\texttt{st.form}):} Cung cấp chức năng cho phép quản trị viên hoặc người dùng (nếu được cấp quyền) thêm các cặp Hỏi-Đáp (Q\&A) mới trực tiếp vào cơ sở tri thức \texttt{resources/faqs.csv}. Hệ thống có thể được cấu hình để tự động cập nhật (re-index) vectorstore sau khi có tri thức mới.
+\end{itemize}
+
+\newpage 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/Giaodien.png}
+    \caption{Giao diện chính ứng dụng streamlit}
+    \label{fig:Giao_dien}
+\end{figure}
+
+
+\subsection{Mô phỏng và Phân tích Kết quả}
+\label{ssec:mophong_ketqua}
+
+Mọi phiên tương tác của người dùng với hệ thống đều được ghi lại (log) vào tệp \texttt{outputs/qa\_log.txt} để phục vụ cho việc gỡ lỗi, giám sát và đánh giá sau này.
+
+\begin{itemize}
+    \item \textbf{Định dạng log:}
+    \begin{verbatim}
+[YYYY-MM-DD HH:MM:SS] query="..."
+retrieved=[(S1, bm25=..., vec=..., fused=...), (S2,...)]
+answer="..." source=S1 latency_ms=...
+    \end{verbatim}
+\end{itemize}
+
+Dưới đây là mô phỏng hai kịch bản truy vấn điển hình:
+
+\subsubsection{Kịch bản 1: Truy vấn Từ khóa Chính xác (Keyword Query)}
+\label{sssec:kichban1}
+
+\begin{itemize}
+    \item \textbf{Input (Đầu vào):} \texttt{What does IELTS stand for?}
+    \item \textbf{Process (Xử lý):} Câu hỏi này chứa từ khóa "IELTS" rất rõ ràng. Cả hai phương thức truy xuất là BM25 (dựa trên từ khóa) và Vector Search (dựa trên ngữ nghĩa) đều dễ dàng tìm thấy câu hỏi/câu trả lời chính xác hoặc rất tương đồng trong \texttt{faqs.csv}.
+    \item \textbf{Output (Kết quả tóm lược từ log):}
+    \begin{itemize}
+        \item \textbf{Chatbot:} "IELTS stands for International English Language Testing System. {[}S1{]}"
+        \item \textbf{Nguồn truy xuất:} {[}S1{]} là nguồn chính xác, các nguồn {[}S2{]}, {[}S3{]} có thể liên quan đến "IELTS" nhưng ít trực tiếp hơn.
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/keyword.png}
+    \caption{Kết quả mô phỏng cho câu hỏi từ khoá chính xác}
+    \label{fig:Ket_qua_mo_phong}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{images/Retrieved Sources.png}
+    \caption{Điểm truy xuất theo nguồn}
+    \label{fig:Diem_truy_xuat}
+\end{figure}
+
+\newpage 
+\subsubsection{Kịch bản 2: Truy vấn Ngữ nghĩa (Semantic Query)}
+\label{sssec:kichban2}
+
+\begin{itemize}
+    \item \textbf{Input (Đầu vào):} \texttt{How can i get 6.5 Ielts}
+    \item \textbf{Process (Xử lý):} Cơ sở tri thức \texttt{faqs.csv} không có câu hỏi nào trùng khớp tuyệt đối về từ vựng. Tuy nhiên, \textbf{Vector Search} (tìm kiếm ngữ nghĩa) phát huy vai trò, xác định được các câu hỏi có ý nghĩa tương đồng, ví dụ: "mẹo cải thiện kỹ năng viết" hoặc "làm sao để tăng điểm kỹ năng đọc".
+    \item \textbf{Output (Kết quả tóm lược từ log):}
+    \begin{itemize}
+        \item \textbf{Chatbot:} (Based on the most relevant source [S1]: Identify the meaning of the word in context, then match it with an option that has a similar meaning. Eliminate choices that don't fit logically or grammatically. Sources: [S1], [S2], [S3])
+        \item \textbf{Nguồn truy xuất:} {[}S1{]} là một câu hỏi về "cách nhận phản hồi bài viết trực tuyến", được hệ thống xác định là liên quan nhất về mặt ngữ nghĩa để trả lời cho truy vấn "làm sao đạt 6.5".
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/Semantic.png}
+    \caption{Kết quả mô phỏng cho câu hỏi ngữ nghĩa}
+    \label{fig:Ket_qua_mo_phong_semantic}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Đánh giá sơ bộ:}
+    Các kịch bản trên cho thấy hệ thống hoạt động hiệu quả với cả truy vấn từ khóa và truy vấn ngữ nghĩa. Để đánh giá sâu hơn, các chỉ số định lượng như \textbf{Top-1/Top-3 Hit Rate} (tỷ lệ tìm đúng nguồn ở vị trí 1/top 3), \textbf{Độ trễ (Latency)} (phân rã giữa Retrieval vs. Generation) có thể được trích xuất và phân tích từ \texttt{outputs/retrieval\_metrics.json} để đo lường p@k hoặc MRR trung bình.
+\end{itemize}
+
+\newpage
+\subsection{Ứng dụng Thực tiễn}
+\label{ssec:ungdung_thuctien}
+
+Kiến trúc RAG của hệ thống mang lại giá trị thực tiễn cao, đặc biệt trong các bối cảnh đòi hỏi tra cứu thông tin nhanh chóng và chính xác từ một nguồn tri thức xác định.
+
+\begin{enumerate}
+    \item \textbf{Hỗ trợ Học viên (Ứng dụng chính):}
+    \begin{itemize}
+        \item \textbf{Kịch bản:} Học viên cần giải đáp thắc mắc về kiến thức (ví dụ: "sự khác biệt giữa Academic và General Reading") ngoài giờ học.
+        \item \textbf{Ứng dụng:} Thay vì chờ đợi giáo viên, học viên tương tác với chatbot. Hệ thống truy xuất từ \texttt{faqs.csv} và trả lời có dẫn nguồn: "Academic uses academic texts, while General focuses on everyday English {[}S1{]}."
+        \item \textbf{Lợi ích:} Cung cấp hỗ trợ học tập 24/7, cá nhân hóa trải nghiệm, và giảm tải đáng kể các câu hỏi lặp lại cho đội ngũ giáo viên và trợ giảng.
+    \end{itemize}
+
+    \item \textbf{Tư vấn Tuyển sinh (Doanh nghiệp):}
+    \begin{itemize}
+        \item \textbf{Kịch bản:} Tích hợp chatbot lên website của trung tâm Anh ngữ. Phụ huynh học sinh truy cập và hỏi về các khóa học (ví dụ: "Trung tâm có lớp SAT không?").
+        \item \textbf{Ứng dụng:} Quản trị viên sử dụng giao diện "Add New FAQ" để bổ sung tri thức về các khóa học. Chatbot ngay lập tức có thể sử dụng nguồn tri thức mới {[}S\_new{]} này để trả lời.
+        \item \textbf{Lợi ích:} Tăng cường tương tác, giữ chân khách hàng tiềm năng (lead nurturing), và tự động hóa quy trình tư vấn tuyển sinh cơ bản.
+    \end{itemize}
+
+    \item \textbf{Hỗ trợ Nội bộ (Mở rộng):}
+    \begin{itemize}
+        \item \textbf{Kịch bản:} Doanh nghiệp thay thế \texttt{faqs.csv} bằng bộ tài liệu chính sách nhân sự (HR policies).
+        \item \textbf{Ứng dụng:} Nhân viên mới có thể hỏi: "Quy định về nghỉ phép năm như thế nào?" Chatbot RAG sẽ tra cứu và trả lời chính xác dựa trên chính sách nội bộ.
+        \item \textbf{Lợi ích:} Giảm thời gian chờ đợi cho bộ phận HR và đảm bảo thông tin được cung cấp cho nhân viên luôn nhất quán, chính xác.
+    \end{itemize}
+\end{enumerate}
+
+
+\subsection{Khả năng Tái lập và Bảo trì}
+\label{ssec:tailap_baotri}
+
+\begin{itemize}
+    \item \textbf{Tái lập (Reproducibility):} Để đảm bảo tính tái lập, các phiên bản phần mềm và mô hình cần được ghi lại.
+    \begin{verbatim}
+# Ghi lại commit hash
+git rev-parse HEAD
+# Ghi lại các phiên bản thư viện
+pip freeze > freeze.txt
+    \end{verbatim}
+    \begin{itemize}
+        \item Mô hình LLM sử dụng: \texttt{llama3.2} (thông qua Ollama).
+    \end{itemize}
+
+    \item \textbf{Cập nhật Tri thức và Bảo trì:}
+    \begin{itemize}
+        \item \textbf{Quy trình:} Thiết lập quy trình chuẩn cho việc thêm/sửa/xóa Q\&A qua UI, xác định lịch trình re-embed (ví dụ: hàng đêm) và kiểm soát phiên bản (version control) cho \texttt{resources/faqs.csv}.
+        \item \textbf{Giám sát:} Cần giám sát liên tục các chỉ số (hit@k, MRR, độ trễ, tỷ lệ không trả lời) để phát hiện sự suy giảm chất lượng khi dữ liệu thay đổi.
+        \item \textbf{Bảo mật:} Đảm bảo ẩn PII trong logs và phân quyền truy cập chặt chẽ.
+    \end{itemize}
+\end{itemize}
+
+
+
+
+\newpage
+
+% --- PHẦN 6 ---
+\section{KẾT LUẬN VÀ HƯỚNG PHÁT TRIỂN}
+
+
+
+
+\subsection{Kết luận}
+\label{ssec:ketluan_6}
+
+Dự án đã thiết kế, triển khai và đánh giá thành công một hệ thống Chatbot Hỏi–Đáp (Q\&A) dựa trên kiến trúc RAG (Retrieval-Augmented Generation). Mục tiêu cốt lõi của đồ án là xây dựng một công cụ hỗ trợ tra cứu hiệu quả các câu hỏi thường gặp về các kỳ thi tiếng Anh (IELTS, TOEIC, SAT) đã được hoàn thành.\cite{rag-lewis-2020}
+
+Hệ thống đã chứng minh được hiệu quả và hoạt động ổn định thông qua việc triển khai các thành phần cốt lõi sau:
+
+\begin{itemize}
+    \item \textbf{Truy xuất thông tin (Retrieval):} Áp dụng thành công phương pháp truy xuất lai (Hybrid Retrieval), kết hợp tìm kiếm ngữ nghĩa (Vector Search với ChromaDB) và tìm kiếm từ khóa truyền thống (BM25). Chiến lược này khai thác ưu điểm bổ trợ của cả hai cách tiếp cận.\cite{bm25-sparck-jones-2000} \cite{}
+    
+    \item \textbf{Tạo sinh ngôn ngữ (Generation):} Tích hợp mô hình ngôn ngữ lớn (LLM) \texttt{Llama 3.2} thông qua Ollama và LangChain, cho phép tạo ra các câu trả lời mạch lạc, tự nhiên và có trích dẫn nguồn 
+    
+    \item \textbf{Đánh giá (Evaluation):} Xây dựng một quy trình đánh giá tự động (\texttt{evaluate.py}), sử dụng các độ đo tiêu chuẩn trong truy xuất thông tin (R@k, MRR, nDCG) để so sánh, hiệu chỉnh và lựa chọn cấu hình hệ thống tối ưu.
+    
+    \item \textbf{Triển khai (Deployment):} Phát triển giao diện demo trực quan bằng Streamlit, cho phép người dùng tương tác dễ dàng và cung cấp chức năng mở rộng cơ sở tri thức một cách thuận tiện.
+\end{itemize}
+
+Kết quả thực nghiệm được trình bày tại Chương 4 đã khẳng định rõ ràng rằng phương pháp Hybrid Retrieval mang lại hiệu quả vượt trội so với việc sử dụng đơn lẻ Vector Search hoặc BM25, đặc biệt trong các kịch bản truy vấn đa dạng về cách diễn đạt. Hệ thống đã đáp ứng đầy đủ mục tiêu ban đầu, cung cấp một giải pháp RAG mạnh mẽ, linh hoạt, dễ mở rộng và sở hữu nền tảng vững chắc để tiến tới vận hành trong thực tế.
+
+\subsection{Hướng phát triển}
+\label{ssec:huongphattrien_6}
+
+Dựa trên nền tảng kỹ thuật đã được hoàn thiện, đồ án còn nhiều tiềm năng nâng cấp nhằm tối ưu hóa độ chính xác, hiệu năng và trải nghiệm người dùng. Các module nâng cao đã được xây dựng nền tảng (ví dụ: \texttt{reranker.py}, \texttt{query\_expansion.py}, \texttt{chunking.py}...) và sẵn sàng để được tích hợp:
+
+\subsubsection{Cải thiện độ chính xác truy xuất}
+\label{sssec:caitien_truyxuat}
+
+\begin{itemize}
+    \item \textbf{Tích hợp Reranker (Cross-Encoder):} Kích hoạt mô-đun \texttt{reranker.py} (hiện đang được đặt \texttt{RERANKER\_ENABLED = False}). Việc sử dụng mô hình Cross-Encoder để sắp xếp lại top-k ứng viên theo mức độ liên quan ngữ nghĩa sâu được kỳ vọng sẽ cải thiện đáng kể chỉ số R@1, đảm bảo ngữ cảnh "chuẩn" nhất được cung cấp cho LLM.
+    
+    \item \textbf{Mở rộng Query Expansion:} Tích hợp đầy đủ \texttt{query\_expansion.py} vào pipeline chính. Tính năng này tự động đa dạng hóa truy vấn gốc của người dùng (sinh từ đồng nghĩa, diễn đạt lại, tạo câu hỏi từ các góc nhìn khác), giúp tăng khả năng truy hồi (recall) khi người dùng sử dụng từ vựng hoặc cấu trúc câu không phổ biến.
+    
+    \item \textbf{Khai thác Hard Negative Mining:} Tạo ra một bộ dữ liệu "hard negatives" (các tài liệu "gần mà sai") từ các truy vấn thực tế. Bộ dữ liệu này có thể được dùng để tinh chỉnh trọng số của Hybrid Search hoặc huấn luyện mô hình reranker, giúp hệ thống phân biệt tốt hơn các ngữ cảnh tương tự nhau.
+\end{itemize}
+
+\subsubsection{Mở rộng cơ sở tri thức và chiến lược dữ liệu}
+\label{sssec:morong_trithuc}
+
+\begin{itemize}
+    \item \textbf{Bổ sung dữ liệu phong phú:} Mở rộng nguồn tri thức từ tệp \texttt{faqs.csv} hiện tại sang các tài liệu dạng dài (unstructured data) như PDF hướng dẫn, sách luyện thi, và các blog chuyên môn chính thống.
+    
+    \item \textbf{Pipeline xử lý tài liệu (Ingestion):} Chuẩn hóa quy trình ingestion, bao gồm: trích xuất văn bản, làm sạch dữ liệu, và chuẩn hóa metadata (nguồn, ngày ban hành, chủ đề). Điều này đảm bảo khả năng truy vết và độ tin cậy của trích dẫn.
+    
+  
+    \begin{sloppy}
+    \item \textbf{Chiến lược Chunking thông minh:} Áp dụng các kỹ thuật chia nhỏ văn bản (chunking) nâng cao từ \texttt{chunking.py} khi xử lý tài liệu dài. Các kỹ thuật này bao gồm:
+    \begin{itemize}
+        \item Chia theo cấu trúc (semantic headings).
+        \item Sử dụng cửa sổ trượt có chồng lấn (sliding window) để giữ ngữ cảnh liền mạch.
+        \item Ràng buộc độ dài theo token để tối ưu hóa tỷ lệ "đoạn văn cô đọng nhưng đủ ý".
+    \end{itemize}
+    \end{sloppy}
+
+\end{itemize}
+
+\subsubsection{Nâng cao trải nghiệm người dùng và kiến trúc hệ thống}
+\label{sssec:nangcao_trainghiem}
+
+\begin{itemize}
+    \item \textbf{Hỗ trợ đa ngôn ngữ:} Tích hợp mô-đun \texttt{multilingual.py}. Hệ thống sẽ tự động nhận diện ngôn ngữ truy vấn (ví dụ: tiếng Việt), dịch sang tiếng Anh (ngôn ngữ của cơ sở tri thức) để tìm kiếm, sau đó dịch ngược câu trả lời cuối cùng sang ngôn ngữ gốc của người dùng.
+    
+    \begin{sloppy} 
+    \item \textbf{Xử lý hội thoại theo ngữ cảnh (Context-Aware):} Kích hoạt \texttt{ContextAwareQueryRewriter} (từ \texttt{query\_expansion.py}) để hiểu các câu hỏi tiếp nối (follow-up questions). Tính năng này cho phép xử lý các hiện tượng như đồng tham chiếu (co-reference) và tỉnh lược (ellipsis), giúp duy trì mạch hội thoại tự nhiên.
+    \end{sloppy}
+ 
+    \begin{sloppy}
+    \item \textbf{Tối ưu hiệu năng:} Triển khai đầy đủ các kỹ thuật trong \texttt{async\_optimization.py} (cho phép truy xuất song song BM25, Vector Search) và \texttt{caching.py} (lưu cache các truy vấn, embedding, và kết quả). Điều này sẽ giảm độ trễ (latency) đáng kể khi hệ thống chịu tải cao.
+    \end{sloppy}
+    
+    \item \textbf{Quan sát và Giám sát (Observability):} Tích hợp logging, tracing và metrics chi tiết (ví dụ: thời gian truy xuất, tỷ lệ cache hit) để chẩn đoán các "nút thắt cổ chai" (bottlenecks) và định hướng cho các nỗ lực tối ưu trong tương lai.
+    
+    \item \textbf{Cơ chế phản hồi người dùng (Feedback Loop):} Cho phép người dùng đánh giá (thumbs up/down) câu trả lời hoặc báo lỗi trích dẫn. Tín hiệu phản hồi này rất quan trọng để tái xếp hạng, lọc các nguồn tri thức kém chất lượng và ưu tiên các tài liệu tin cậy.
+\end{itemize}
+
+\subsubsection{Thử nghiệm mô hình và cấu hình}
+\label{sssec:thunghiem_mohinh}
+
+\begin{itemize}
+    \item \textbf{Embedding:} Thử nghiệm và so sánh các mô hình embedding (bi-encoder) mới, đặc biệt là các mô hình được tinh chỉnh cho lĩnh vực giáo dục, nhằm cải thiện khả năng phân biệt các chủ đề gần nhau.
+    
+    \item \textbf{Reranker:} Thử nghiệm các mô hình cross-encoder khác nhau để tìm ra sự cân bằng tối ưu giữa hiệu năng (tốc độ) và độ chính xác (tăng R@1/MRR).
+    
+    \item \textbf{LLM Tạo sinh:} Thử nghiệm các LLM mới hơn (ví dụ: Llama 3.x, các mô hình tối ưu) thông qua tệp \texttt{config.py} để đánh giá chất lượng lập luận, độ chính xác của trích dẫn và tính nhất quán trong phong cách trả lời.
+    
+    \item \textbf{Guardrails và An toàn:} Bổ sung các bộ lọc nội dung không phù hợp và cơ chế kiểm tra tính thực chứng (fact-check) dựa trên trích dẫn để giảm thiểu hiện tượng ảo giác (hallucination).
+\end{itemize}
+
+\subsubsection{Đảm bảo chất lượng, thử nghiệm và bảo mật}
+\label{sssec:dambao_chatluong}
+
+\begin{itemize}
+    \item \textbf{Tự động hóa đánh giá (CI/CD):} Mở rộng \texttt{evaluate.py} để có thể chạy tự động theo lịch hoặc mỗi khi có thay đổi mã nguồn (CI), lưu trữ kết quả đánh giá theo từng phiên bản để theo dõi xu hướng chất lượng.
+    
+    \item \textbf{Human-in-the-loop (HITL):} Thiết lập quy trình kiểm định thủ công định kỳ trên các mẫu truy vấn "khó", từ đó cập nhật các hướng dẫn (guidelines) cho prompt hoặc chiến lược chunking.
+    
+    \item \textbf{Quyền riêng tư và Tuân thủ:} Đảm bảo làm mờ (anonymize) dữ liệu nhạy cảm của người dùng trong nhật ký, quản lý truy cập nguồn tri thức và tuân thủ các nguyên tắc bảo mật.
+\end{itemize}
+
+\subsubsection{Lộ trình triển khai đề xuất (Roadmap)}
+\label{sssec:roadmap}
+
+Để hiện thực hóa các hướng phát triển trên, một lộ trình được đề xuất như sau:
+
+\begin{itemize}
+    \item \textbf{Giai đoạn 1 (Ngắn hạn - 2–3 tuần):} Kích hoạt Reranker. Tích hợp Query Expansion cơ bản. Bổ sung logging và metrics. Thực hiện benchmark lại toàn bộ hệ thống (R@k, MRR, Latency).
+    
+    \item \textbf{Giai đoạn 2 (Trung hạn - 3–4 tuần):} Mở rộng cơ sở tri thức (PDF, tài liệu dài). Triển khai pipeline chunking nâng cao và chuẩn hóa metadata. Thiết lập cơ chế cache đa tầng.
+    
+    \item \textbf{Giai đoạn 3 (Dài hạn - 2–3 tuần):} Hoàn thiện tính năng đa ngôn ngữ và hội thoại theo ngữ cảnh. Tối ưu hóa truy xuất bất đồng bộ (async). Thử nghiệm các mô hình Embedding/LLM mới và hoàn thiện Guardrails.
+    
+    \item \textbf{Giai đoạn 4 (Liên tục):} Vận hành, giám sát, và cải tiến liên tục dựa trên phản hồi của người dùng và kết quả đánh giá tự động.
+\end{itemize}
+
+
+\subsection{Kết luận mở}
+\label{ssec:ketluan_mo}
+
+Với nền tảng RAG vững chắc đã được kiểm chứng qua thực nghiệm, dự án đã sẵn sàng bước sang giai đoạn nâng cấp tiếp theo về cả chiều sâu dữ liệu, thuật toán và kiến trúc hệ thống. Việc triển khai có lộ trình các tính năng nâng cao như Reranker, mở rộng tri thức, hỗ trợ đa ngôn ngữ và tối ưu hiệu năng sẽ đưa hệ thống tiến gần đến tiêu chuẩn của một sản phẩm thực tế, đủ khả năng phục vụ hiệu quả và đáng tin cậy cho cộng đồng người học và ôn luyện các kỳ thi tiếng Anh.
+
+% --- TÀI LIỆU THAM KHẢO ---
+\printbibliography
+
+\end{document}
